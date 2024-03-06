@@ -4,8 +4,7 @@
   "description": "making learning fun and competitive",
   "main": "server.js",
   "scripts": {
-    "": "",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && nodemon ./dest/server.js"
   },
   "keywords": [
     "express"
@@ -19,6 +18,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.9"
   }
 }
