@@ -1,11 +1,11 @@
 // cores
-import http from "http";
-import app from "./app";
-import dotenv from "dotenv";
-import path from "path";
-import mongoose from "mongoose";
+import http from 'http';
+import app from './app';
+import dotenv from 'dotenv';
+import path from 'path';
+import mongoose from 'mongoose';
 
-dotenv.config({ path: path.resolve(__dirname, "../config.env") });
+dotenv.config({ path: path.resolve(__dirname, '../config.env') });
 
 const server = http.createServer(app);
 
