@@ -9,8 +9,12 @@ dotenv.config({ path: path.resolve(__dirname, "../config.env") });
 
 const server = http.createServer(app);
 
-// server
-const PORT = (process.env.post as unknown as number) || 4000;
-server.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
-});
+mongoose
+  .connect(process.env.LDB as string)
+  .then((data) => {
+    const PORT = (process.env.port as unknown as number) || 4000;
+    server.listen(PORT, () => {
+      console.log(`Server is running on ${PORT} ..✅`);
+    });
+  })
+  .catch((err) => console.log(err.message as string));

@@ -1,5 +1,5 @@
 /node_modules
 /dest
-/dest/node_modules
+Doc.md
 config.env
 package-lock.json
