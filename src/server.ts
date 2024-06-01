@@ -16,7 +16,7 @@ mongoose
       );
     });
   })
-  .catch((err) => {
+  .catch(() => {
     console.log("An error occured when connecting to the database");
     process.exit(1);
   });

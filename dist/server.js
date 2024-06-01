@@ -17,7 +17,7 @@ mongoose_1.default
         console.log(`Server is currently running on port ${process.env.PORT || 8000}`);
     });
 })
-    .catch((err) => {
+    .catch(() => {
     console.log("An error occured when connecting to the database");
     process.exit(1);
 });
