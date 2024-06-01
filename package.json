@@ -1,0 +1,32 @@
+{
+  "name": "stanki",
+  "version": "1.0.0",
+  "description": "Making learning fun for students",
+  "main": "sever.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ./dist/server.js",
+    "dev": "nodemon ./dist/server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "backend",
+    "university",
+    "quiz"
+  ],
+  "author": "Johnpaul Nnaji",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.9",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jest": "^29.7.0",
+    "mongoose": "^8.4.1",
+    "morgan": "^1.10.0",
+    "typescript": "^5.4.5"
+  }
+}
