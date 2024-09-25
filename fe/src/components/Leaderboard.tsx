@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import { LeaderboardEntry } from '@/types';
+import { motion } from 'framer-motion';
 
 interface LeaderboardProps {
   entries: LeaderboardEntry[];
@@ -7,7 +10,13 @@ interface LeaderboardProps {
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ entries }) => {
   return (
-    <div className="max-w-2xl mx-auto mt-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-2xl mx-auto mt-8"
+    >
       <h2 className="text-3xl font-bold mb-6 text-center">Leaderboard</h2>
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full">
@@ -21,20 +30,23 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ entries }) => {
           </thead>
           <tbody>
             {entries.map((entry, index) => (
-              <tr
+              <motion.tr
                 key={entry.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
               >
                 <td className="py-3 px-4">{index + 1}</td>
                 <td className="py-3 px-4 font-medium">{entry.name}</td>
                 <td className="py-3 px-4">{entry.level}</td>
                 <td className="py-3 px-4">{entry.score}</td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

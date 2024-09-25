@@ -3,66 +3,67 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-blue-600 text-white p-4">
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 shadow-lg"
+    >
       <nav className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold">
-          Competitive Learning Platform
+        <Link
+          href="/"
+          className="text-2xl font-bold hover:text-yellow-300 transition-colors"
+        >
+          CLP
         </Link>
-        <ul className="flex space-x-4">
-          <li>
-            <Link
-              href="/quiz"
-              className="hover:text-blue-200 transition-colors"
-            >
-              Quizzes
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/leaderboard"
-              className="hover:text-blue-200 transition-colors"
-            >
-              Leaderboard
-            </Link>
-          </li>
+        <ul className="flex space-x-6">
+          <NavItem href="/quiz">Quizzes</NavItem>
+          <NavItem href="/leaderboard">Leaderboard</NavItem>
+          <NavItem href="/resources">Resources</NavItem>
           {user ? (
             <>
+              <NavItem href="/dashboard">Dashboard</NavItem>
               <li>
-                <Link
-                  href="/dashboard"
-                  className="hover:text-blue-200 transition-colors"
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={logout}
-                  className="hover:text-blue-200 transition-colors"
+                  className="hover:text-yellow-300 transition-colors"
                 >
                   Logout
-                </button>
+                </motion.button>
               </li>
             </>
           ) : (
-            <li>
-              <Link
-                href="/login"
-                className="hover:text-blue-200 transition-colors"
-              >
-                Login
-              </Link>
-            </li>
+            <NavItem href="/login">Login</NavItem>
           )}
         </ul>
       </nav>
-    </header>
+    </motion.header>
   );
 };
+
+const NavItem: React.FC<{ href: string; children: React.ReactNode }> = ({
+  href,
+  children,
+}) => (
+  <li>
+    <Link href={href} passHref>
+      <motion.a
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="hover:text-yellow-300 transition-colors"
+      >
+        {children}
+      </motion.a>
+    </Link>
+  </li>
+);
 
 export default Navigation;
