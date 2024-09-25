@@ -29,6 +29,13 @@ const Dashboard: React.FC = () => {
     { day: 'Sun', score: 65 },
   ];
 
+  // Mock badges data
+  const badges = [
+    { id: '1', name: 'Quick Learner', icon: '🚀' },
+    { id: '2', name: 'Quiz Master', icon: '🏆' },
+    { id: '3', name: 'Consistent Performer', icon: '📊' },
+  ];
+
   if (!user) return null;
 
   return (
@@ -101,12 +108,18 @@ const Dashboard: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             className="bg-gradient-to-br from-yellow-100 to-red-100 p-6 rounded-lg shadow"
           >
-            <h2 className="text-xl font-semibold mb-4">Recent Achievements</h2>
-            <ul className="list-disc list-inside">
-              <li>Completed 5 quizzes in a row</li>
-              <li>Reached level 5</li>
-              <li>Top 10 on the leaderboard</li>
-            </ul>
+            <h2 className="text-xl font-semibold mb-4">Your Badges</h2>
+            <div className="flex flex-wrap gap-4">
+              {badges.map((badge) => (
+                <div
+                  key={badge.id}
+                  className="flex items-center bg-white p-2 rounded-full shadow"
+                >
+                  <span className="text-2xl mr-2">{badge.icon}</span>
+                  <span className="font-medium">{badge.name}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>

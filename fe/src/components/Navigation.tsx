@@ -29,6 +29,8 @@ const Navigation: React.FC = () => {
           {user ? (
             <>
               <NavItem href="/dashboard">Dashboard</NavItem>
+              <NavItem href="/create-quiz">Create Quiz</NavItem>
+              <NavItem href="/course-materials">Course Materials</NavItem>
               <li>
                 <motion.button
                   whileHover={{ scale: 1.05 }}

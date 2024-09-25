@@ -2,14 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-
-interface Resource {
-  id: string;
-  title: string;
-  description: string;
-  type: 'article' | 'video' | 'quiz';
-  link: string;
-}
+import { Resource, CourseMaterial } from '@/types';
 
 const mockResources: Resource[] = [
   {
@@ -36,17 +29,48 @@ const mockResources: Resource[] = [
     type: 'quiz',
     link: '#',
   },
-  // Add more mock resources here
+];
+
+const mockCourseMaterials: CourseMaterial[] = [
+  {
+    id: '1',
+    title: 'Introduction to Programming',
+    description: 'A comprehensive guide to get started with programming.',
+    fileUrl: '#',
+    uploadedBy: 'Prof. Smith',
+    uploadDate: '2023-05-15',
+    activeStudents: 150,
+  },
+  {
+    id: '2',
+    title: 'Data Structures and Algorithms',
+    description: 'Learn about fundamental data structures and algorithms.',
+    fileUrl: '#',
+    uploadedBy: 'Dr. Johnson',
+    uploadDate: '2023-05-20',
+    activeStudents: 120,
+  },
 ];
 
 const LearningResources: React.FC = () => {
   const [resources] = useState<Resource[]>(mockResources);
-  const [filter, setFilter] = useState<'all' | 'article' | 'video' | 'quiz'>(
-    'all',
-  );
+  const [courseMaterials] = useState<CourseMaterial[]>(mockCourseMaterials);
+  const [filter, setFilter] = useState<
+    'all' | 'article' | 'video' | 'quiz' | 'material'
+  >('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredResources =
-    filter === 'all' ? resources : resources.filter((r) => r.type === filter);
+  const filteredResources = [...resources, ...courseMaterials]
+    .filter((r) => {
+      if (filter === 'all') return true;
+      if (filter === 'material') return 'uploadedBy' in r;
+      return 'type' in r && r.type === filter;
+    })
+    .filter(
+      (r) =>
+        r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
 
   return (
     <motion.div
@@ -59,6 +83,15 @@ const LearningResources: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">
         Learning Resources
       </h1>
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search resources..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
       <div className="mb-6 flex justify-center space-x-4">
         <FilterButton
           active={filter === 'all'}
@@ -84,11 +117,21 @@ const LearningResources: React.FC = () => {
         >
           Quizzes
         </FilterButton>
+        <FilterButton
+          active={filter === 'material'}
+          onClick={() => setFilter('material')}
+        >
+          Course Materials
+        </FilterButton>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredResources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
-        ))}
+        {filteredResources.map((resource) =>
+          'uploadedBy' in resource ? (
+            <CourseMaterialCard key={resource.id} material={resource} />
+          ) : (
+            <ResourceCard key={resource.id} resource={resource} />
+          ),
+        )}
       </div>
     </motion.div>
   );
@@ -135,6 +178,34 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => (
         View Resource
       </motion.a>
     </div>
+  </motion.div>
+);
+
+const CourseMaterialCard: React.FC<{ material: CourseMaterial }> = ({
+  material,
+}) => (
+  <motion.div
+    whileHover={{ scale: 1.03 }}
+    className="bg-white p-6 rounded-lg shadow-md"
+  >
+    <h2 className="text-xl font-semibold mb-2">{material.title}</h2>
+    <p className="text-gray-600 mb-4">{material.description}</p>
+    <p className="text-sm text-gray-500 mb-2">
+      Uploaded by: {material.uploadedBy} on{' '}
+      {new Date(material.uploadDate).toLocaleDateString()}
+    </p>
+    <p className="text-sm text-blue-600 mb-4">
+      Active Students: {material.activeStudents}
+    </p>
+    <motion.a
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      href={material.fileUrl}
+      download
+      className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors"
+    >
+      Download Material
+    </motion.a>
   </motion.div>
 );
 
