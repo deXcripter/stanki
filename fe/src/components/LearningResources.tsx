@@ -47,7 +47,7 @@ const mockCourseMaterials: CourseMaterial[] = [
     description: 'Learn about fundamental data structures and algorithms.',
     fileUrl: '#',
     uploadedBy: 'Dr. Johnson',
-    uploadDate: '2023-05-20',
+    uploadDate: '2024-05-20',
     activeStudents: 120,
   },
 ];
