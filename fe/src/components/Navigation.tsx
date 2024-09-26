@@ -57,13 +57,13 @@ const NavItem: React.FC<{ href: string; children: React.ReactNode }> = ({
 }) => (
   <li>
     <Link href={href} passHref>
-      <motion.a
+      <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="hover:text-yellow-300 transition-colors"
       >
         {children}
-      </motion.a>
+      </motion.div>
     </Link>
   </li>
 );

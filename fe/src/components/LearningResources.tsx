@@ -33,7 +33,7 @@ const mockResources: Resource[] = [
 
 const mockCourseMaterials: CourseMaterial[] = [
   {
-    id: '1',
+    id: '11',
     title: 'Introduction to Programming',
     description: 'A comprehensive guide to get started with programming.',
     fileUrl: '#',
@@ -42,7 +42,7 @@ const mockCourseMaterials: CourseMaterial[] = [
     activeStudents: 150,
   },
   {
-    id: '2',
+    id: '23',
     title: 'Data Structures and Algorithms',
     description: 'Learn about fundamental data structures and algorithms.',
     fileUrl: '#',
