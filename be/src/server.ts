@@ -5,15 +5,15 @@ import http from 'http';
 
 dotenv.config({ path: path.join(__dirname, '../config.env') });
 
+import app from './app';
+
 console.log('##### Connecting to the Database #####');
 mongoose
   .connect(process.env.LOCAL_DB!)
   .then(() => {
-    const server = http.createServer((req, res) => {});
-    server.listen(process.env.PORT || 8000, () => {
-      console.log(
-        `Server is currently running on port ${process.env.PORT || 8080}`,
-      );
+    const server = http.createServer(app);
+    server.listen(process.env.PORT, () => {
+      console.log(`Server is curently running on port ${process.env.PORT}`);
     });
   })
   .catch(() => {
