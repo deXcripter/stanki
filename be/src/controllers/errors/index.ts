@@ -3,6 +3,7 @@ import handleDevErrors from './dev';
 import handleProdErrors from './prod';
 import handleValidationErrors from './handlers/handle-validation-error';
 import AppError from '../../utils/app-error';
+import handleUniqueValueErrors from './handlers/handle-11000-error';
 
 const globalError = (
   err: AppError,
@@ -11,14 +12,14 @@ const globalError = (
   next: NextFunction,
 ) => {
   let error: any = JSON.parse(JSON.stringify(err));
-  const prod = false;
 
-  if (err.name === 'ValidationError') error = handleValidationErrors(err);
+  if (error.name === 'ValidationError') error = handleValidationErrors(err);
+  if (error.code == 11000) error = handleUniqueValueErrors(err);
 
-  console.log(error, err);
-
-  if (!prod) handleDevErrors(error, res, next);
+  // handling dev and prod env
+  const prod = process.env.NODE_ENV === 'production';
   if (prod) handleProdErrors(error, res, next);
+  else handleDevErrors(error, res, next);
 };
 
 export default globalError;
