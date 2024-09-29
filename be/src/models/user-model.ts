@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import { iUser } from '../interfaces';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<iUser>({
   email: {
     type: String,
     unique: true,
@@ -40,6 +41,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model<iUser>('User', userSchema);
 
 export default User;
