@@ -9,10 +9,8 @@ const userSchema = new mongoose.Schema({
     minlength: 4,
     required: true,
     maxlength: 20,
-    vaalidate: {
-      validate: function (val: string) {
-        return validator.isEmail(val);
-      },
+    validate: {
+      validator: (v: string) => validator.isEmail(v),
       message: (props: { value: string }) =>
         `${props.value} is not a valid email`,
     },

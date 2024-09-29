@@ -1,7 +1,12 @@
 import { NextFunction, Response } from 'express';
+import AppError from '../../utils/app-error';
 
 const handleDevErrors = (err: AppError, res: Response, next: NextFunction) => {
-  res.status(err.statusCode).json({
+  // final
+  err.statusCode = err.statusCode || 500;
+  err.message = err.message || 'Something went terribly wrong';
+
+  return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
     error: err,

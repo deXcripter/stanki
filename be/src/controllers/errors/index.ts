@@ -1,4 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
+import handleDevErrors from './dev';
+import handleProdErrors from './prod';
+import handleValidationErrors from './handlers/handle-validation-error';
+import AppError from '../../utils/app-error';
 
 const globalError = (
   err: AppError,
@@ -6,11 +10,15 @@ const globalError = (
   res: Response,
   next: NextFunction,
 ) => {
-  res.status(500).json({
-    status: 'error',
-    message: err.message,
-    error: err,
-  });
+  let error: any = JSON.parse(JSON.stringify(err));
+  const prod = false;
+
+  if (err.name === 'ValidationError') error = handleValidationErrors(err);
+
+  console.log(error, err);
+
+  if (!prod) handleDevErrors(error, res, next);
+  if (prod) handleProdErrors(error, res, next);
 };
 
 export default globalError;
