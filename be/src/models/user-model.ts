@@ -36,9 +36,11 @@ const userSchema = new mongoose.Schema<iUser>({
     type: String,
     required: true,
     minlength: 6,
+    select: false,
   },
-  passwordConfirm: {
-    type: String,
+  passwordChangedAt: {
+    type: Date,
+    select: false,
   },
 });
 
@@ -52,6 +54,17 @@ userSchema.methods.comparePassword = async function (
   userPassword: string,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.changedPassword = function (JWTTimestamp: number) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      (this.passwordChangedAt.getTime() / 1000).toString(),
+      10,
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
 };
 
 const User = mongoose.model<iUser>('User', userSchema);

@@ -20,6 +20,7 @@ export default interface iUser extends Document {
     candidatePassword: string,
     userPassword: string,
   ): Promise<boolean>;
+  changedPassword(JWTTimestamp: number): boolean;
 }
 
 // declare module 'express-serve-static-core' {
