@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import { iUser } from '../interfaces';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema<iUser>({
   email: {
@@ -40,6 +41,13 @@ const userSchema = new mongoose.Schema<iUser>({
     type: String,
   },
 });
+
+userSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+  userPassword: string,
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model<iUser>('User', userSchema);
 
