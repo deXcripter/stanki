@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import QuizList from '../components/QuizList';
 import LeaderBoard from '../components/Leaderboard';
 import Badge from '../components/Badge';
+import CourseList from '../components/CourseList';
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState('quizzes');
@@ -51,6 +52,16 @@ export default function StudentDashboard() {
                   Quizzes
                 </button>
                 <button
+                  onClick={() => setActiveTab('courses')}
+                  className={`${
+                    activeTab === 'courses'
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                >
+                  Courses
+                </button>
+                <button
                   onClick={() => setActiveTab('leaderboard')}
                   className={`${
                     activeTab === 'leaderboard'
@@ -74,6 +85,7 @@ export default function StudentDashboard() {
             </div>
             <div className="mt-6">
               {activeTab === 'quizzes' && <QuizList />}
+              {activeTab === 'courses' && <CourseList />}
               {activeTab === 'leaderboard' && <LeaderBoard />}
               {activeTab === 'badges' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

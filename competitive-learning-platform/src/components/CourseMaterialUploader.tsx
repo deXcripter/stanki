@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export default function CourseMaterialUploader() {
   const [title, setTitle] = useState('');
-  const [type, setType] = useState('file');
+  const [type, setType] = useState('coursework');
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
@@ -65,26 +65,27 @@ export default function CourseMaterialUploader() {
                   onChange={(e) => setType(e.target.value)}
                   className="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                 >
-                  <option value="file">File</option>
-                  <option value="article">Article</option>
+                  <option value="coursework">Coursework (PDF)</option>
                   <option value="video">Video</option>
+                  <option value="article">Article</option>
                 </select>
               </div>
             </div>
 
-            {type === 'file' ? (
+            {type === 'coursework' ? (
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                 <label
                   htmlFor="file"
                   className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                 >
-                  File
+                  File (PDF)
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                   <input
                     type="file"
                     name="file"
                     id="file"
+                    accept=".pdf"
                     onChange={(e) =>
                       setFile(e.target.files ? e.target.files[0] : null)
                     }

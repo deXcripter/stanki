@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import QuizCreator from '../components/QuizCreator';
 import LeaderBoard from '../components/Leaderboard';
 import CourseMaterialUploader from '../components/CourseMaterialUploader';
+import CourseList from '../components/CourseList';
 
 export default function EducatorDashboard() {
   const [activeTab, setActiveTab] = useState('create-quiz');
@@ -48,6 +49,16 @@ export default function EducatorDashboard() {
                   Upload Material
                 </button>
                 <button
+                  onClick={() => setActiveTab('course-materials')}
+                  className={`${
+                    activeTab === 'course-materials'
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                >
+                  Course Materials
+                </button>
+                <button
                   onClick={() => setActiveTab('leaderboard')}
                   className={`${
                     activeTab === 'leaderboard'
@@ -62,6 +73,7 @@ export default function EducatorDashboard() {
             <div className="mt-6">
               {activeTab === 'create-quiz' && <QuizCreator />}
               {activeTab === 'upload-material' && <CourseMaterialUploader />}
+              {activeTab === 'course-materials' && <CourseList />}
               {activeTab === 'leaderboard' && <LeaderBoard />}
             </div>
           </div>
