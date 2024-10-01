@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../services/axios';
+import decodeUser from '../services/userDetails';
+import { showSuccessToast } from '../utils/toasts';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -10,9 +13,16 @@ export default function Signup() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual signup logic
-    console.log('Signup:', name, email, password, role);
-    navigate('/dashboard/' + role);
+
+    axiosInstance
+      .post('/auth/signup', { name, email, password, role })
+      .then(async (data) => {
+        const token = data.data.token;
+        localStorage.setItem('token', token);
+        const user = await decodeUser(token);
+        showSuccessToast('Account created successfully');
+        navigate('/dashboard/' + user.role);
+      });
   };
 
   return (

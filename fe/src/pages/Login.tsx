@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axios';
-import { jwtDecode } from 'jwt-decode';
 import { showErrorToast, showSuccessToast } from '../utils/toasts';
+import decodeUser from '../services/userDetails';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ export default function Login() {
       .then(async (data) => {
         const token = data.data.token;
         localStorage.setItem('token', token);
-        const user: { role: string } = await jwtDecode(token);
+        const user = await decodeUser(token);
         showSuccessToast('Logged in successfully!');
         const redirectPath =
           user.role === 'student'
