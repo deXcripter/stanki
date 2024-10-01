@@ -5,9 +5,14 @@ import sendToken from '../../services/sendJwtToken';
 import { iUser } from '../../interfaces';
 
 const signup: RequestHandler = async (req, res, next) => {
-  const { email, password, passwordConfirm } = req.body;
+  const { email, password, passwordConfirm, educator } = req.body;
 
-  const payload = { email, password, passwordConfirm };
+  const payload = {
+    email,
+    password,
+    passwordConfirm,
+    role: educator ? 'educator' : 'student',
+  };
 
   const user: iUser = await User.create(payload);
 
