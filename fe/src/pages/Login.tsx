@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axios';
 import { jwtDecode } from 'jwt-decode';
+import { showErrorToast, showSuccessToast } from '../utils/toasts';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,14 +18,16 @@ export default function Login() {
         const token = data.data.token;
         localStorage.setItem('token', token);
         const user: { role: string } = await jwtDecode(token);
+        showSuccessToast('Logged in successfully!');
         const redirectPath =
           user.role === 'student'
             ? '/dashboard/student'
             : '/dashboard/educator';
+
         navigate(redirectPath);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        showErrorToast(err.response.data.message);
       });
   };
 

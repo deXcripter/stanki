@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -7,6 +6,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import EducatorDashboard from './pages/EducatorDashboard';
 import Profile from './pages/Profile';
 import CourseMaterials from './pages/CourseMaterials';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <Route path="/course-materials" element={<CourseMaterials />} />
         </Routes>
       </div>
+      <ToastContainer />
     </Router>
   );
 }
