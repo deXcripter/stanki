@@ -21,3 +21,17 @@ export default interface iUser extends Document {
     userPassword: string,
   ): Promise<boolean>;
 }
+
+// declare module 'express-serve-static-core' {
+//   interface Request {
+//     user: iUser;
+//   }
+// }
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: iUser;
+    }
+  }
+}

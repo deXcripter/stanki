@@ -6,20 +6,18 @@ import AppError from '../../utils/app-error';
 import handleUniqueValueErrors from './handlers/handle-11000-error';
 
 const globalError = (
-  err: AppError,
+  err: AppError | any,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  let error: any = JSON.parse(JSON.stringify(err));
-
-  if (error.name === 'ValidationError') error = handleValidationErrors(err);
-  if (error.code == 11000) error = handleUniqueValueErrors(err);
+  if (err.name === 'ValidationError') err = handleValidationErrors(err);
+  if (err.code == 11000) err = handleUniqueValueErrors(err);
 
   // handling dev and prod env
   const prod = process.env.NODE_ENV === 'production';
-  if (prod) handleProdErrors(error, res, next);
-  else handleDevErrors(error, res, next);
+  if (prod) handleProdErrors(err, res, next);
+  else handleDevErrors(err, res, next);
 };
 
 export default globalError;
