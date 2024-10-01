@@ -1,16 +1,31 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../services/axios';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual login logic
-    console.log('Login:', email, password);
-    navigate('/dashboard/student'); // For now, always navigate to student dashboard
+
+    axiosInstance
+      .post('/auth/signin', { email, password })
+      .then(async (data) => {
+        const token = data.data.token;
+        localStorage.setItem('token', token);
+        const user: { role: string } = await jwtDecode(token);
+        const redirectPath =
+          user.role === 'student'
+            ? '/dashboard/student'
+            : '/dashboard/educator';
+        navigate(redirectPath);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   return (
