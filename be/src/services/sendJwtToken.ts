@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { iUser, iEnv } from '../interfaces';
 import AppError from '../utils/app-error';
 
-const signToken = (id: string, role: string) => {
+const signToken = (id: string, role: string, name: string) => {
   const secret = (process.env as unknown as iEnv).JWT_SECRET;
   if (!secret)
     throw new AppError(
@@ -13,7 +13,7 @@ const signToken = (id: string, role: string) => {
 
   const jwtExpiry = process.env.JWT_EXPIRES_IN || '1d';
 
-  const payload = { id, role };
+  const payload = { id, role, name };
 
   const token = jwt.sign(payload, secret, {
     expiresIn: jwtExpiry,
@@ -36,7 +36,7 @@ const createCookieOptions = () => {
 };
 
 const sendToken = (user: iUser, statusCode: number, res: Response) => {
-  const token = signToken(user._id, user.role);
+  const token = signToken(user._id, user.role, user.name);
 
   res.cookie('jwt', token, createCookieOptions());
 
