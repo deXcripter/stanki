@@ -1,4 +1,3 @@
-// src/components/CourseList.tsx
 import { useState, useEffect } from 'react';
 import {
   DocumentTextIcon,
@@ -13,13 +12,19 @@ interface CourseMaterial {
   type: 'coursework' | 'video' | 'article';
   url: string;
   enrolledStudents: number;
+  instructorId: string;
+  instructorName: string;
 }
 
-export default function CourseList() {
+interface CourseListProps {
+  instructorId: string;
+}
+
+export default function CourseList({ instructorId }: CourseListProps) {
   const [materials, setMaterials] = useState<CourseMaterial[]>([]);
 
   useEffect(() => {
-    // TODO: Fetch course materials from API
+    // TODO: Replace with actual API call
     const mockMaterials: CourseMaterial[] = [
       {
         id: '1',
@@ -27,6 +32,8 @@ export default function CourseList() {
         type: 'coursework',
         url: '/materials/intro-react.pdf',
         enrolledStudents: 150,
+        instructorId: '1',
+        instructorName: 'John Doe',
       },
       {
         id: '2',
@@ -34,6 +41,8 @@ export default function CourseList() {
         type: 'video',
         url: 'https://example.com/js-basics',
         enrolledStudents: 200,
+        instructorId: '2',
+        instructorName: 'Jane Smith',
       },
       {
         id: '3',
@@ -41,6 +50,8 @@ export default function CourseList() {
         type: 'article',
         url: 'https://example.com/css-grid',
         enrolledStudents: 100,
+        instructorId: '3',
+        instructorName: 'Bob Johnson',
       },
     ];
     setMaterials(mockMaterials);
@@ -59,10 +70,15 @@ export default function CourseList() {
     }
   };
 
+  const filteredMaterials =
+    instructorId === 'all'
+      ? materials
+      : materials.filter((material) => material.instructorId === instructorId);
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-md">
       <ul className="divide-y divide-gray-200">
-        {materials.map((material) => (
+        {filteredMaterials.map((material) => (
           <li key={material.id}>
             <a href={material.url} className="block hover:bg-gray-50">
               <div className="px-4 py-4 sm:px-6">
@@ -86,6 +102,9 @@ export default function CourseList() {
                       {material.type.charAt(0).toUpperCase() +
                         material.type.slice(1)}
                     </p>
+                  </div>
+                  <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                    <p>Instructor: {material.instructorName}</p>
                   </div>
                 </div>
               </div>

@@ -1,43 +1,64 @@
-// src/components/QuizList.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
-import QuizOptionsTray from './QuizOptionsTray.tsx';
+import QuizOptionsTray from './QuizOptionsTray';
 
 interface Quiz {
   id: string;
   title: string;
   description: string;
+  instructorId: string;
+  instructorName: string;
 }
 
-export default function QuizList() {
-  const [quizzes, setQuizzes] = useState<Quiz[]>([
-    {
-      id: '1',
-      title: 'CSC 452',
-      description: 'Test your Knowledge on Expert Systems',
-    },
-    {
-      id: '2',
-      title: 'CSC 462',
-      description: 'Computer Graphics Quiz',
-    },
-    {
-      id: '3',
-      title: 'CSC 412',
-      description: 'Computer Networks Quiz',
-    },
-  ]);
+interface QuizListProps {
+  instructorId: string;
+}
 
+export default function QuizList({ instructorId }: QuizListProps) {
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [openQuizId, setOpenQuizId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // TODO: Replace with actual API call
+    const mockQuizzes: Quiz[] = [
+      {
+        id: '1',
+        title: 'Math Quiz',
+        description: 'Test your math skills',
+        instructorId: '1',
+        instructorName: 'John Doe',
+      },
+      {
+        id: '2',
+        title: 'Science Quiz',
+        description: 'Explore scientific concepts',
+        instructorId: '2',
+        instructorName: 'Jane Smith',
+      },
+      {
+        id: '3',
+        title: 'History Quiz',
+        description: 'Journey through historical events',
+        instructorId: '3',
+        instructorName: 'Bob Johnson',
+      },
+    ];
+    setQuizzes(mockQuizzes);
+  }, []);
 
   const toggleQuizTray = (quizId: string) => {
     setOpenQuizId(openQuizId === quizId ? null : quizId);
   };
 
+  const filteredQuizzes =
+    instructorId === 'all'
+      ? quizzes
+      : quizzes.filter((quiz) => quiz.instructorId === instructorId);
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-md">
       <ul className="divide-y divide-gray-200">
-        {quizzes.map((quiz) => (
+        {filteredQuizzes.map((quiz) => (
           <li key={quiz.id}>
             <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-between">
@@ -56,6 +77,9 @@ export default function QuizList() {
                 </button>
               </div>
               <p className="mt-1 text-sm text-gray-500">{quiz.description}</p>
+              <p className="mt-1 text-sm text-gray-500">
+                Instructor: {quiz.instructorName}
+              </p>
               {openQuizId === quiz.id && <QuizOptionsTray quizId={quiz.id} />}
             </div>
           </li>
