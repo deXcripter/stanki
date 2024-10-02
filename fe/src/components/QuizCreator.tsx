@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { PlusIcon, TrashIcon } from '@heroicons/react/solid';
+import axiosInstance from '../services/axios';
+import { showErrorToast } from '../utils/toasts';
 
 export default function QuizCreator() {
   const [title, setTitle] = useState('');
@@ -40,6 +42,10 @@ export default function QuizCreator() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    axiosInstance
+      .post('/quiz', { title, questions })
+      .then(() => {})
+      .catch((err) => showErrorToast(err.message));
     // TODO: Implement quiz submission logic
     console.log('Quiz submitted:', { title, questions });
   };

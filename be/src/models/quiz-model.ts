@@ -4,7 +4,7 @@ import { iQuiz } from '../interfaces';
 const quizSchema = new mongoose.Schema<iQuiz>({
   courseId: {
     type: String,
-    required: true,
+    // required: true,
   },
   createdAt: {
     type: Date,
@@ -14,16 +14,9 @@ const quizSchema = new mongoose.Schema<iQuiz>({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-  },
   questions: [
     {
-      quizId: {
-        type: String,
-        required: true,
-      },
-      text: String,
+      question: String,
       options: [String],
       correctAnswer: Number,
     },

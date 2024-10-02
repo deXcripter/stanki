@@ -16,7 +16,7 @@ interface Educator extends iUser {
 interface Quiz {
   id: string;
   title: string;
-  description: string;
+  // description: string;
   questions: Question[];
   creatorId: string; // ID of the educator who created the quiz
   courseId: string; // ID of the course this quiz belongs to

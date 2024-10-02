@@ -6,6 +6,8 @@ const handleDevErrors = (err: AppError, res: Response, next: NextFunction) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Something went terribly wrong';
 
+  console.log(err);
+
   return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,

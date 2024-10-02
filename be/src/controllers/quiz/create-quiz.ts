@@ -4,11 +4,10 @@ import { iQuiz } from '../../interfaces';
 import Quiz from '../../models/quiz-model';
 
 const createQuiz: RequestHandler = async (req, res, next) => {
-  const { title, description, questions, courseId } = req.body;
+  const { title, questions, courseId } = req.body;
 
   const payload = {
     title,
-    description,
     questions,
     courseId,
     creatorId: req.user.id,
