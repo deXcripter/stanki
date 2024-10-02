@@ -31,7 +31,7 @@ export default function CourseMaterialUploader() {
           </div>
 
           <div className="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <div className="sm: grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
               <label
                 htmlFor="title"
                 className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -45,7 +45,7 @@ export default function CourseMaterialUploader() {
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                  className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md h-12 text-lg"
                 />
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function CourseMaterialUploader() {
                   name="type"
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                  className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md h-12 text-lg"
                 >
                   <option value="coursework">Coursework (PDF)</option>
                   <option value="video">Video</option>
@@ -89,7 +89,7 @@ export default function CourseMaterialUploader() {
                     onChange={(e) =>
                       setFile(e.target.files ? e.target.files[0] : null)
                     }
-                    className="max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function CourseMaterialUploader() {
                     id="url"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md h-12 text-lg"
                   />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function CourseMaterialUploader() {
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="max-w-lg shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
+                  className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
                 />
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function CourseMaterialUploader() {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Upload Material
           </button>

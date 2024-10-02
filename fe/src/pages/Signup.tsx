@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axios';
 import decodeUser from '../services/userDetails';
-import { showSuccessToast } from '../utils/toasts';
+import { showErrorToast, showSuccessToast } from '../utils/toasts';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -22,6 +22,9 @@ export default function Signup() {
         const user = await decodeUser(token);
         showSuccessToast('Account created successfully');
         navigate('/dashboard/' + user.role);
+      })
+      .catch((err) => {
+        showErrorToast(err.response.data.message);
       });
   };
 
