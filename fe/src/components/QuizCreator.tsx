@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PlusIcon, TrashIcon } from '@heroicons/react/solid';
 import axiosInstance from '../services/axios';
-import { showErrorToast } from '../utils/toasts';
+import { showErrorToast, showSuccessToast } from '../utils/toasts';
 
 export default function QuizCreator() {
   const [title, setTitle] = useState('');
@@ -44,10 +44,14 @@ export default function QuizCreator() {
     e.preventDefault();
     axiosInstance
       .post('/quiz', { title, questions })
-      .then(() => {})
+      .then(() => {
+        showSuccessToast('Quiz created successfully');
+        setTitle('');
+        setQuestions([
+          { question: '', options: ['', '', '', ''], correctAnswer: 0 },
+        ]);
+      })
       .catch((err) => showErrorToast(err.message));
-    // TODO: Implement quiz submission logic
-    console.log('Quiz submitted:', { title, questions });
   };
 
   return (
