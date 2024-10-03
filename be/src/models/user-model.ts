@@ -17,20 +17,17 @@ const userSchema = new mongoose.Schema<iUser>({
         `${props.value} is not a valid email`,
     },
   },
-
   role: {
     type: String,
     enum: ['student', 'educator', 'admin'],
     required: true,
     default: 'student',
   },
-
   createdAt: {
     type: Date,
     default: Date.now,
     required: true,
   },
-
   // auth
   password: {
     type: String,
