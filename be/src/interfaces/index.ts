@@ -113,6 +113,15 @@ interface AuthResponse {
   token: string;
 }
 
+interface Pagination {
+  totalItems: number;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
 // Export all interfaces
 export type {
   Student as iStudent,
@@ -128,6 +137,7 @@ export type {
   LoginCredentials as iLoginCredentials,
   SignupData as iSignupData,
   AuthResponse as iAuthResponse,
+  Pagination as iPagination,
   iUser,
   iEnv,
 };

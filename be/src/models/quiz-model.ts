@@ -25,6 +25,6 @@ const quizSchema = new mongoose.Schema<iQuiz>({
   updatedAt: Date,
 });
 
-const mQuiz = mongoose.model<iQuiz>('Quiz', quizSchema);
+const Quiz = mongoose.model<iQuiz>('Quiz', quizSchema);
 
-export default mQuiz;
+export default Quiz;

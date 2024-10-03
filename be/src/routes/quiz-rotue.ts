@@ -1,8 +1,9 @@
 import express from 'express';
-import createQuiz from '../controllers/quiz/create-quiz';
 import protect from '../middlewares/protect';
+import { createQuiz, getAllQuizByEducator } from '../controllers/quiz';
 const router = express.Router();
 
 router.route('/').post(protect, createQuiz);
+router.get('/educator', getAllQuizByEducator);
 
 export { router as quizRouter };
