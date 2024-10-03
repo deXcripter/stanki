@@ -4,6 +4,7 @@ import asyncHandler from '../../utils/async-handler';
 import sendToken from '../../services/sendJwtToken';
 import { iUser } from '../../interfaces';
 import AppError from '../../utils/app-error';
+import sendEmail from '../../utils/email';
 
 const signup: RequestHandler = async (req, res, next) => {
   const { email, password, role, name } = req.body;
@@ -17,6 +18,8 @@ const signup: RequestHandler = async (req, res, next) => {
     name,
     role: role || 'student',
   };
+
+  sendEmail(email, 'Registration Email', 'Welcome to CLP');
 
   const user: iUser = await User.create(payload);
 

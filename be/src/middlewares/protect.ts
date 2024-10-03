@@ -7,11 +7,7 @@ import asyncHandler from '../utils/async-handler';
 
 const protect: RequestHandler = async (req, res, next) => {
   const [type, token] = (req.headers.authorization || '').split(' ');
-
-  if (!token) {
-    return next(new AppError('Invalid token. Please login', 401));
-  }
-
+  if (!token) return next(new AppError('Invalid token. Please login', 401));
   if (type.toLowerCase() !== 'bearer' || !token) {
     return next(
       new AppError('You are not logged in. Please login to get access', 401),
