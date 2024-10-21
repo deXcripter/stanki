@@ -22,6 +22,8 @@ interface Quiz {
   courseId: string; // ID of the course this quiz belongs to
   createdAt: Date;
   updatedAt: Date;
+  courseCode: string;
+  registeredStudents: string[];
 }
 
 interface Question {

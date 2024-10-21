@@ -6,6 +6,11 @@ const quizSchema = new mongoose.Schema<iQuiz>({
     type: String,
     // required: true,
   },
+  courseCode: {
+    type: String,
+    // required: true,
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
@@ -23,6 +28,7 @@ const quizSchema = new mongoose.Schema<iQuiz>({
   ],
   title: String,
   updatedAt: Date,
+  registeredStudents: [String],
 });
 
 const Quiz = mongoose.model<iQuiz>('Quiz', quizSchema);

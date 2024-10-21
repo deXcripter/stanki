@@ -1,11 +1,9 @@
 // src/pages/EducatorDashboard.tsx
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '@headlessui/react';
 import {
   PencilAltIcon,
   UploadIcon,
-  BookOpenIcon,
   ChartBarIcon,
   UserCircleIcon,
   ChartPieIcon,
@@ -14,7 +12,6 @@ import {
 import QuizCreator from '../components/QuizCreator';
 import LeaderBoard from '../components/Leaderboard';
 import CourseMaterialUploader from '../components/CourseMaterialUploader';
-import CourseList from '../components/CourseList';
 import QuizAnalytics from '../components/QuizAnalytics';
 import EducatorResources from '../components/EducatorResources';
 
@@ -26,7 +23,6 @@ export default function EducatorDashboard() {
   const tabs = [
     { name: 'Create Quiz', icon: PencilAltIcon },
     { name: 'Upload Material', icon: UploadIcon },
-    { name: 'Course Materials', icon: BookOpenIcon },
     { name: 'My Resources', icon: CollectionIcon },
     { name: 'Leaderboard', icon: ChartBarIcon },
     { name: 'Analytics', icon: ChartPieIcon },
@@ -78,9 +74,7 @@ export default function EducatorDashboard() {
             <Tab.Panel className="bg-white rounded-xl p-3">
               <CourseMaterialUploader />
             </Tab.Panel>
-            <Tab.Panel className="bg-white rounded-xl p-3">
-              <CourseList instructorId="current_educator_id" />
-            </Tab.Panel>
+
             <Tab.Panel className="bg-white rounded-xl p-3">
               <EducatorResources />
             </Tab.Panel>

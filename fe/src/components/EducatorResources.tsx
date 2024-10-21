@@ -20,22 +20,22 @@ export default function EducatorResources() {
   useEffect(() => {
     // TODO: Replace with actual API call
     const mockResources: Resource[] = [
-      { id: '1', title: 'Math Quiz 1', type: 'quiz', createdAt: '2023-05-01' },
+      { id: '1', title: 'CSC 452', type: 'quiz', createdAt: '2023-05-01' },
       {
         id: '2',
-        title: 'Introduction to React',
+        title: 'Introduction to computer systems',
         type: 'course',
         createdAt: '2023-05-02',
       },
       {
         id: '3',
-        title: 'History Quiz 1',
+        title: 'Computer Architecture',
         type: 'quiz',
         createdAt: '2023-05-03',
       },
       {
         id: '4',
-        title: 'Advanced JavaScript',
+        title: 'Software Engineering',
         type: 'course',
         createdAt: '2023-05-04',
       },

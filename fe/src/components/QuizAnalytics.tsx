@@ -22,11 +22,11 @@ export default function QuizAnalytics() {
   useEffect(() => {
     // TODO: Replace with actual API call
     const mockData: QuizPerformance[] = [
-      { quizName: 'Math Quiz 1', averageScore: 85, participationRate: 90 },
-      { quizName: 'Science Quiz 1', averageScore: 78, participationRate: 85 },
-      { quizName: 'History Quiz 1', averageScore: 72, participationRate: 80 },
-      { quizName: 'English Quiz 1', averageScore: 88, participationRate: 95 },
-      { quizName: 'Geography Quiz 1', averageScore: 76, participationRate: 70 },
+      { quizName: 'CSC 401 Quiz 1', averageScore: 85, participationRate: 90 },
+      { quizName: 'CSC 452', averageScore: 78, participationRate: 85 },
+      { quizName: 'CSC 482', averageScore: 72, participationRate: 80 },
+      { quizName: 'CSC 371', averageScore: 88, participationRate: 95 },
+      { quizName: 'CSC 343', averageScore: 76, participationRate: 70 },
     ];
     setQuizPerformance(mockData);
   }, []);

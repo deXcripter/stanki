@@ -28,7 +28,7 @@ export default function CourseList({ instructorId }: CourseListProps) {
     const mockMaterials: CourseMaterial[] = [
       {
         id: '1',
-        title: 'Introduction to React',
+        title: 'Introduction to Software Engineering',
         type: 'coursework',
         url: '/materials/intro-react.pdf',
         enrolledStudents: 150,
@@ -37,7 +37,7 @@ export default function CourseList({ instructorId }: CourseListProps) {
       },
       {
         id: '2',
-        title: 'JavaScript Basics',
+        title: 'Networking Basics',
         type: 'video',
         url: 'https://example.com/js-basics',
         enrolledStudents: 200,
@@ -46,7 +46,7 @@ export default function CourseList({ instructorId }: CourseListProps) {
       },
       {
         id: '3',
-        title: 'CSS Grid Layout',
+        title: 'Visual Basic Crash Course',
         type: 'article',
         url: 'https://example.com/css-grid',
         enrolledStudents: 100,
