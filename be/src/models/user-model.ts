@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema<iUser>({
     lowercase: true,
     minlength: 4,
     required: true,
-    maxlength: 25,
+    maxlength: 50,
     validate: {
       validator: (v: string) => validator.isEmail(v),
       message: (props: { value: string }) =>
