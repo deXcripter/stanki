@@ -1,20 +1,27 @@
 import nodemailer from 'nodemailer';
 
-// TODO 1: Implement the sendEmail function
 const sendEmail = async (email: string, subject: string, text: string) => {
-  const transporter = nodemailer.createTransport({
+  const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.GMAIL_USERNAME,
+      pass: process.env.GMAIL_PASSWORD,
     },
   });
 
-  await transporter.sendMail({
-    from: process.env.EMAIL,
-    to: email,
-    subject,
-    text,
+  return new Promise<void>((resolve, reject) => {
+    transport.sendMail(
+      {
+        from: process.env.EMAIL_USERNAME,
+        to: email,
+        subject,
+        text,
+      },
+      (err, info) => {
+        if (err) reject(err);
+        resolve();
+      },
+    );
   });
 };
 

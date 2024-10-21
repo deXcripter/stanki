@@ -6,7 +6,6 @@ import http from 'http';
 dotenv.config({ path: path.join(__dirname, '../config.env') });
 
 import app from './app';
-import handleDevErrors from './controllers/errors/dev';
 
 console.log('##### Connecting to the Database #####');
 mongoose
@@ -22,6 +21,6 @@ mongoose
     process.exit(1);
   });
 
-process.on('uncaughtException', () => {
-  console.log('Something went very wrong!');
+process.on('uncaughtException', (err) => {
+  console.log('Something went very wrong!', err.message);
 });
