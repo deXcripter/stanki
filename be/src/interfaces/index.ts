@@ -18,10 +18,10 @@ interface Quiz {
   title: string;
   questions: Question[];
   creatorId: string; // ID of the educator who created the quiz
-  courseId: string; // ID of the course this quiz belongs to
+  // courseId: string; // ID of the course this quiz belongs to
   createdAt: Date;
   updatedAt: Date;
-  courseCode: string;
+  // courseCode: string;
   registeredStudents: string[];
 }
 
@@ -88,10 +88,22 @@ interface LeaderboardEntry {
 }
 
 // API response interfaces
+// interface ApiResponse<T> {
+//   status: number;
+//   success: boolean;
+//   data?: T;
+//   error?: string;
+// }
+
 interface ApiResponse<T> {
-  success: boolean;
+  statusCode: number;
   data?: T;
-  error?: string;
+  message?: string;
+  error?: {
+    message: string;
+    code: string;
+    stackTrace?: string;
+  };
 }
 
 // Example usage: ApiResponse<User[]> for a list of users

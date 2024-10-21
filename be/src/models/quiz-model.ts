@@ -2,15 +2,6 @@ import mongoose from 'mongoose';
 import { iQuiz } from '../interfaces';
 
 const quizSchema = new mongoose.Schema<iQuiz>({
-  courseId: {
-    type: String,
-    // required: true,
-  },
-  courseCode: {
-    type: String,
-    // required: true,
-  },
-
   createdAt: {
     type: Date,
     default: Date.now,
