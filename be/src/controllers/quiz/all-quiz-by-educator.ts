@@ -5,19 +5,12 @@ import asyncHandler from '../../utils/async-handler';
 import AppError from '../../utils/app-error';
 
 const getAllQuizByEducator: RequestHandler = async (req, res, next) => {
-  let {
-    page = '0',
-    limit = '10',
-    educatorId,
-  } = req.query as {
+  let { page = '0', limit = '10' } = req.query as {
     page: string;
     limit: string;
-    educatorId: string;
   };
 
-  if (req.user.role === 'educator') educatorId = req.user.id;
-  if (!educatorId) return next(new AppError('Educator ID is required', 400));
-
+  const educatorId = req.user.id!;
   const startIndex = (Number(page) - 1) * Number(limit);
   const endIndex = Number(page) * Number(limit);
   const skip = parseInt(page) * parseInt(limit);

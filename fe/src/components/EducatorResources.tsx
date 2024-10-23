@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
+import axiosInstance from '../services/axios';
 
 interface Resource {
   id: string;
@@ -19,6 +20,12 @@ export default function EducatorResources() {
 
   useEffect(() => {
     // TODO: Replace with actual API call
+    async function fetchResources() {
+      const response = await axiosInstance.get('/quiz/quiz-educator');
+      console.log(response);
+      setResources(response.data);
+    }
+    fetchResources();
     const mockResources: Resource[] = [
       { id: '1', title: 'CSC 452', type: 'quiz', createdAt: '2023-05-01' },
       {

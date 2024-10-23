@@ -1,9 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
-import { authRouter } from './routes/auth-route';
+import { authRouter } from './routes/general/auth-route';
 import globalError from './controllers/errors';
 import cors from 'cors';
-import { quizRouter } from './routes/quiz-rotue';
+import { quizRouter } from './routes/educator/quiz-rotue';
 
 const app = express();
 

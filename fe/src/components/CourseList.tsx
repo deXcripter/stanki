@@ -108,6 +108,7 @@ export default function CourseList({ instructorId }: CourseListProps) {
                   </div>
                 </div>
               </div>
+              z
             </a>
           </li>
         ))}
