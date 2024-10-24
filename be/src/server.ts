@@ -10,7 +10,7 @@ import EnviromentConfig from './config';
 
 console.log('###### Connecting to the Database ######');
 mongoose
-  .connect(EnviromentConfig.LOCAL_DB)
+  .connect(EnviromentConfig.DB)
   .then(() => {
     const server = http.createServer(app);
     server.listen(process.env.PORT, () => {
