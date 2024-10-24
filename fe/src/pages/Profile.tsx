@@ -1,8 +1,10 @@
 // src/pages/Profile.tsx
 import { useState, useEffect } from 'react';
+import axiosInstance from '../services/axios';
+import { toast } from 'react-toastify';
 
 interface User {
-  name: string;
+  fullName: string;
   email: string;
   role: 'student' | 'educator';
   bio: string;
@@ -13,20 +15,32 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // TODO: Fetch user data from API
-    const mockUser: User = {
-      name: 'John Doe',
-      email: 'john@example.com',
-      role: 'student',
-      bio: 'Passionate learner and coding enthusiast.',
-    };
-    setUser(mockUser);
+    axiosInstance
+      .get('/profile')
+      .then((val) => {
+        setUser(val.data.data);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || err.message);
+      });
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement API call to update user profile
-    console.log('Updating profile:', user);
+    axiosInstance
+      .patch('/profile', {
+        fullName: user?.fullName,
+        email: user?.email,
+        bio: user?.bio,
+      })
+      .then((val) => {
+        setUser(val.data.user);
+        toast.success('Profile updated successfully');
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.message || err.message);
+      });
     setIsEditing(false);
   };
 
@@ -67,9 +81,9 @@ export default function Profile() {
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <input
                           type="text"
-                          value={user.name}
+                          value={user.fullName}
                           onChange={(e) =>
-                            setUser({ ...user, name: e.target.value })
+                            setUser({ ...user, fullName: e.target.value })
                           }
                           className="max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                         />
@@ -129,7 +143,7 @@ export default function Profile() {
                         Full name
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {user.name}
+                        {user.fullName}
                       </dd>
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

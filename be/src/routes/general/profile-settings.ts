@@ -1,7 +1,7 @@
 import express from 'express';
-import editProfile from '../../controllers/user/edit-profile';
+import { getUser, updateProfile } from '../../controllers/user';
 const Router = express.Router();
 
-Router.patch('/', editProfile);
+Router.route('/').patch(updateProfile).get(getUser);
 
 export { Router as profileRouter };

@@ -14,6 +14,7 @@ const changePassword: RequestHandler = async (req, res, next) => {
       message: 'Password updated successfully',
     });
   }
+
   return next(new AppError('Incorrect password', 401));
 };
 

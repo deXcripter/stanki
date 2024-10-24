@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema<iUser>({
     type: Date,
     select: false,
   },
+  bio: { type: String, default: '' },
 });
 
 userSchema.pre('save', async function (next) {

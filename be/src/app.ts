@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/api/v1/auth', authRouter);
-app.use('/profile', protect, profileRouter);
+app.use('/api/v1/profile', protect, profileRouter);
 app.use('/api/v1/quiz', protect, restrictTo('educator'), educatorQuizRouter);
 app.use('*', (req, res) =>
   res
