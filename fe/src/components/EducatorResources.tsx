@@ -3,13 +3,8 @@ import { useState, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import axiosInstance from '../services/axios';
+import { toast } from 'react-toastify';
 
-// interface Resource {
-//   id: string;
-//   type: 'quiz' | 'course';
-//   title: string;
-//   createdAt: string;
-// }
 interface Question {
   id: string;
   quizId: string;
@@ -18,7 +13,7 @@ interface Question {
   correctAnswer: number; // Index of the correct answer in the options array
 }
 interface Resource {
-  id: string;
+  _id: string;
   title: string;
   questions?: Question[];
   type: 'quiz' | 'course';
@@ -50,28 +45,17 @@ export default function EducatorResources() {
     console.log('Editing resource:', id);
   };
 
-  const handleDelete = (id: string) => {
-    // TODO: Implement delete functionality
-    console.log('Deleting resource:', id);
+  const handleDelete = async (id: string) => {
+    const success = await axiosInstance.delete(`/quiz/${id}`);
+    if (success) toast.success('Resource deleted successfully');
+    else toast.error('Failed to delete resource');
+    setResources(resources.filter((r) => r._id !== id));
   };
 
   return (
     <div className="w-full px-2 py-16 sm:px-0">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-          <Tab
-            className={({ selected }) =>
-              classNames(
-                'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                selected
-                  ? 'bg-white shadow'
-                  : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
-              )
-            }
-          >
-            All Resources
-          </Tab>
           <Tab
             className={({ selected }) =>
               classNames(
@@ -104,7 +88,7 @@ export default function EducatorResources() {
             <ul className="divide-y divide-gray-200">
               {resources.map((resource) => (
                 <li
-                  key={resource.id}
+                  key={resource._id}
                   className="py-4 flex justify-between items-center"
                 >
                   <div>
@@ -118,13 +102,13 @@ export default function EducatorResources() {
                   </div>
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => handleEdit(resource.id)}
+                      onClick={() => handleEdit(resource._id)}
                       className="text-indigo-600 hover:text-indigo-900"
                     >
                       <PencilIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(resource.id)}
+                      onClick={() => handleDelete(resource._id)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <TrashIcon className="h-5 w-5" />
@@ -140,7 +124,7 @@ export default function EducatorResources() {
                 .filter((r) => r.type === 'quiz')
                 .map((resource) => (
                   <li
-                    key={resource.id}
+                    key={resource._id}
                     className="py-4 flex justify-between items-center"
                   >
                     <div>
@@ -153,13 +137,13 @@ export default function EducatorResources() {
                     </div>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => handleEdit(resource.id)}
+                        onClick={() => handleEdit(resource._id)}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         <PencilIcon className="h-5 w-5" />
                       </button>
                       <button
-                        onClick={() => handleDelete(resource.id)}
+                        onClick={() => handleDelete(resource._id)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <TrashIcon className="h-5 w-5" />
@@ -175,7 +159,7 @@ export default function EducatorResources() {
                 .filter((r) => r.type === 'course')
                 .map((resource) => (
                   <li
-                    key={resource.id}
+                    key={resource._id}
                     className="py-4 flex justify-between items-center"
                   >
                     <div>
@@ -188,13 +172,13 @@ export default function EducatorResources() {
                     </div>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => handleEdit(resource.id)}
+                        onClick={() => handleEdit(resource._id)}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         <PencilIcon className="h-5 w-5" />
                       </button>
                       <button
-                        onClick={() => handleDelete(resource.id)}
+                        onClick={() => handleDelete(resource._id)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <TrashIcon className="h-5 w-5" />

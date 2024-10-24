@@ -1,11 +1,21 @@
 import express from 'express';
 import protect from '../../middlewares/protect';
-import { createQuiz, getAllQuizByEducator } from '../../controllers/quiz';
+import {
+  createQuiz,
+  deleteQuiz,
+  getAllQuizByEducator,
+} from '../../controllers/quiz';
 import restrictTo from '../../middlewares/restrictTo';
 const router = express.Router();
 
 router.all('protect', restrictTo('educator'));
-router.route('/').post(protect, createQuiz);
-router.get('/quiz-educator', protect, getAllQuizByEducator);
+router.route('/').post(createQuiz);
+router.get(
+  '/quiz-educator',
+  protect,
+  restrictTo('educator'),
+  getAllQuizByEducator,
+);
+router.route('/:id').delete(deleteQuiz);
 
-export { router as quizRouter };
+export { router as educatorQuizRouter };

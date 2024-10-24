@@ -3,7 +3,9 @@ import morgan from 'morgan';
 import { authRouter } from './routes/general/auth-route';
 import globalError from './controllers/errors';
 import cors from 'cors';
-import { quizRouter } from './routes/educator/quiz-rotue';
+import { educatorQuizRouter } from './routes/educator/quiz-rotue';
+import restrictTo from './middlewares/restrictTo';
+import protect from './middlewares/protect';
 
 const app = express();
 
@@ -12,7 +14,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/quiz', quizRouter);
+app.use('/api/v1/quiz', protect, restrictTo('educator'), educatorQuizRouter);
 app.use('*', (req, res) =>
   res
     .status(404)

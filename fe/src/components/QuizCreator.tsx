@@ -51,7 +51,10 @@ export default function QuizCreator() {
           { question: '', options: ['', '', '', ''], correctAnswer: 0 },
         ]);
       })
-      .catch((err) => showErrorToast(err.message));
+      .catch((err) => {
+        showErrorToast(err.response.data.message || err.message);
+        console.log(err.response);
+      });
   };
 
   return (
@@ -83,6 +86,7 @@ export default function QuizCreator() {
                 type="text"
                 name="title"
                 id="title"
+                required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-12 text-lg"
@@ -131,6 +135,7 @@ export default function QuizCreator() {
                     type="text"
                     id={`question-${questionIndex}`}
                     value={question.question}
+                    required
                     onChange={(e) =>
                       updateQuestion(questionIndex, 'question', e.target.value)
                     }
@@ -149,6 +154,7 @@ export default function QuizCreator() {
                       <input
                         type="text"
                         id={`question-${questionIndex}-option-${optionIndex}`}
+                        required
                         value={option}
                         onChange={(e) =>
                           updateOption(
