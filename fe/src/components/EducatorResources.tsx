@@ -4,11 +4,27 @@ import { Tab } from '@headlessui/react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import axiosInstance from '../services/axios';
 
+// interface Resource {
+//   id: string;
+//   type: 'quiz' | 'course';
+//   title: string;
+//   createdAt: string;
+// }
+interface Question {
+  id: string;
+  quizId: string;
+  text: string;
+  options: string[];
+  correctAnswer: number; // Index of the correct answer in the options array
+}
 interface Resource {
   id: string;
   title: string;
+  questions?: Question[];
   type: 'quiz' | 'course';
   createdAt: string;
+  updatedAt?: string;
+  registeredStudents?: string[];
 }
 
 function classNames(...classes: string[]) {
@@ -22,32 +38,11 @@ export default function EducatorResources() {
     // TODO: Replace with actual API call
     async function fetchResources() {
       const response = await axiosInstance.get('/quiz/quiz-educator');
-      console.log(response);
-      setResources(response.data);
+      const data = response.data.data;
+      setResources(data.quizzes);
+      console.log(data.quizzes);
     }
     fetchResources();
-    const mockResources: Resource[] = [
-      { id: '1', title: 'CSC 452', type: 'quiz', createdAt: '2023-05-01' },
-      {
-        id: '2',
-        title: 'Introduction to computer systems',
-        type: 'course',
-        createdAt: '2023-05-02',
-      },
-      {
-        id: '3',
-        title: 'Computer Architecture',
-        type: 'quiz',
-        createdAt: '2023-05-03',
-      },
-      {
-        id: '4',
-        title: 'Software Engineering',
-        type: 'course',
-        createdAt: '2023-05-04',
-      },
-    ];
-    setResources(mockResources);
   }, []);
 
   const handleEdit = (id: string) => {

@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(__dirname, '../config.env') });
 import app from './app';
 import EnviromentConfig from './config';
 
-console.log('##### Connecting to the Database #####');
+console.log('###### Connecting to the Database ######');
 mongoose
   .connect(EnviromentConfig.LOCAL_DB)
   .then(() => {
