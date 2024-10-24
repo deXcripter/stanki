@@ -36,7 +36,7 @@ const createCookieOptions = () => {
 };
 
 const sendToken = (user: iUser, statusCode: number, res: Response) => {
-  const token = signToken(user._id, user.role, user.name);
+  const token = signToken(user._id, user.role, user.fullName);
 
   res.cookie('jwt', token, createCookieOptions());
 

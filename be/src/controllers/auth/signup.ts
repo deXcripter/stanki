@@ -15,7 +15,7 @@ const signup: RequestHandler = async (req, res, next) => {
   const payload = {
     email,
     password,
-    name,
+    fullName: name,
     role: role || 'student',
   };
 

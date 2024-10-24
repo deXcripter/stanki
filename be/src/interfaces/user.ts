@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 export default interface iUser extends Document {
   email: string;
-  name: string;
+  fullName: string;
   password: string;
   passwordConfirm: string | undefined;
   passwordChangedAt: Date;

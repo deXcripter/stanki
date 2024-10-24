@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema<iUser>({
         `${props.value} is not a valid email`,
     },
   },
+  fullName: String,
   role: {
     type: String,
     enum: ['student', 'educator', 'admin'],
