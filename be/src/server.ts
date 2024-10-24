@@ -6,10 +6,11 @@ import http from 'http';
 dotenv.config({ path: path.join(__dirname, '../config.env') });
 
 import app from './app';
+import EnviromentConfig from './config';
 
 console.log('##### Connecting to the Database #####');
 mongoose
-  .connect(process.env.LOCAL_DB!)
+  .connect(EnviromentConfig.LOCAL_DB)
   .then(() => {
     const server = http.createServer(app);
     server.listen(process.env.PORT, () => {
