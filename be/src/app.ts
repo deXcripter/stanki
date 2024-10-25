@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use('/', (req, res) => res.send('Welcome to Stanki API'));
+app.use('/ping', (req, res) => res.send('Welcome to Stanki API'));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/profile', protect, profileRouter);
 app.use('/api/v1/quiz', protect, restrictTo('educator'), educatorQuizRouter);
