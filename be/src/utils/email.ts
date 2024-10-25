@@ -10,18 +10,19 @@ const sendEmail = async (email: string, subject: string, text: string) => {
   });
 
   return new Promise<void>((resolve, reject) => {
-    transport.sendMail(
-      {
-        from: process.env.EMAIL_USERNAME,
-        to: email,
-        subject,
-        text,
-      },
-      (err, info) => {
-        if (err) reject(err);
-        resolve();
-      },
-    );
+    // transport.sendMail(
+    //   {
+    //     from: process.env.EMAIL_USERNAME,
+    //     to: email,
+    //     subject,
+    //     text,
+    //   },
+    //   (err, info) => {
+    //     if (err) reject(err);
+    //     resolve();
+    //   },
+    // );
+    resolve(); // TODO - fix the error and delete this lines
   });
 };
 

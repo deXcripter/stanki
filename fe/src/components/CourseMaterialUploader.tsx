@@ -1,17 +1,41 @@
 // src/components/CourseMaterialUploader.tsx
 import { useState } from 'react';
+import axiosInstance from '../services/axios';
+import { toast } from 'react-toastify';
 
 export default function CourseMaterialUploader() {
   const [title, setTitle] = useState('');
-  const [type, setType] = useState('coursework');
+  const [type, setType] = useState('file');
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement API call to upload material
-    console.log('Uploading material:', { title, type, file, url, description });
+    const formData = new FormData();
+    if (type === 'file' && file) {
+      formData.append('file', file);
+    } else {
+      formData.append('url', url);
+    }
+    formData.append('title', title);
+    formData.append('type', type);
+    formData.append('description', description);
+
+    axiosInstance
+      .post('/resource', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 15000,
+        timeoutErrorMessage: 'Request timed out',
+      })
+      .then((val) => {
+        console.log(val);
+        toast.success('Material uploaded successfully');
+      })
+      .catch((err) => {
+        toast.error('Failed to upload material');
+        console.error(err);
+      });
   };
 
   return (
@@ -65,14 +89,14 @@ export default function CourseMaterialUploader() {
                   onChange={(e) => setType(e.target.value)}
                   className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md h-12 text-lg"
                 >
-                  <option value="coursework">Coursework (PDF)</option>
+                  <option value="file">file (PDF)</option>
                   <option value="video">Video</option>
                   <option value="article">Article</option>
                 </select>
               </div>
             </div>
 
-            {type === 'coursework' ? (
+            {type === 'file' ? (
               <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                 <label
                   htmlFor="file"

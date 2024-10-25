@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface IResource extends mongoose.Document {
-  name: string;
-  type: 'video' | 'file' | 'image';
+  title: string;
+  type: 'video' | 'file' | 'link';
   url: string;
+  description: string;
   educator: mongoose.Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -12,18 +13,17 @@ export interface IResource extends mongoose.Document {
 
 const resourceSchema = new mongoose.Schema<IResource>(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
     type: {
       type: String,
-      enum: ['video', 'file', 'image'],
+      enum: ['video', 'file', 'link'],
       required: true,
     },
     url: {
       type: String,
-      required: true,
     },
     educator: {
       type: mongoose.Schema.Types.ObjectId,
@@ -40,9 +40,11 @@ const resourceSchema = new mongoose.Schema<IResource>(
         ref: 'User',
       },
     ],
+    description: String,
   },
   {
     timestamps: true,
+    strict: true,
   },
 );
 

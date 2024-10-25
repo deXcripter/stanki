@@ -7,6 +7,7 @@ import { educatorQuizRouter } from './routes/educator/quiz-rotue';
 import restrictTo from './middlewares/restrictTo';
 import protect from './middlewares/protect';
 import { profileRouter } from './routes/general/profile-settings';
+import { EducatorResourceRouter } from './routes/educator/resource-route';
 
 const app = express();
 
@@ -17,6 +18,12 @@ app.use(morgan('dev'));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/profile', protect, profileRouter);
 app.use('/api/v1/quiz', protect, restrictTo('educator'), educatorQuizRouter);
+app.use(
+  '/api/v1/course',
+  protect,
+  restrictTo('educator'),
+  EducatorResourceRouter,
+);
 app.use('*', (req, res) =>
   res
     .status(404)

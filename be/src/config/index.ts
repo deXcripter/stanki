@@ -1,6 +1,12 @@
 const EnviromentConfig = {
   DB: process.env.DATABASE! as string,
   LOCAL_DB: 'mongodb://127.0.0.1:27017/stanki',
+
+  CLOUDINARY: {
+    NAME: process.env.CLOUDINARY_CLOUD_NAME!,
+    KEY: process.env.CLOUDINARY_API_KEY!,
+    SECRET: process.env.CLOUDINARY_API_SECRET!,
+  },
 };
 
 for (let key in EnviromentConfig) {
