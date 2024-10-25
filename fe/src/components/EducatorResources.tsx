@@ -161,6 +161,9 @@ export default function EducatorResource() {
                     <p className="text-sm text-gray-500">
                       Created: {resource.createdAt}
                     </p>
+                    <p className="text-sm text-gray-500">
+                      Registered Students: {resource.registeredStudents.length}
+                    </p>
                   </div>
                   <div className="flex space-x-2">
                     <button
